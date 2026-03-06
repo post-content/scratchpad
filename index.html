@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>scratchpad</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=IM+Fell+English:ital@0;1&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a18;
+      --paper: #f5f0e8;
+      --rule: #d4cfc4;
+      --accent: #c0392b;
+      --faint: #e8e2d6;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    /* ─── NOTEPAD ─── */
+    #pad {
+      display: none;
+      width: 100%;
+      height: 100%;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 15px;
+      line-height: 28px;
+      padding: 56px 10% 56px;
+      border: none;
+      outline: none;
+      resize: none;
+      caret-color: var(--accent);
+
+      /* ruled lines */
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 27px,
+        var(--rule) 27px,
+        var(--rule) 28px
+      );
+      background-attachment: local;
+    }
+
+    #pad::placeholder {
+      color: #b8b2a6;
+      font-style: italic;
+    }
+
+    /* ─── LANDING ─── */
+    #landing {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 80px 10%;
+      gap: 0;
+    }
+
+    .eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-family: 'IM Fell English', serif;
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 400;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 32px;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .subtitle {
+      font-size: 13px;
+      font-weight: 300;
+      color: #6b6560;
+      max-width: 480px;
+      line-height: 1.8;
+      margin-bottom: 64px;
+    }
+
+
+
+    /* ─── TRY BUTTON ─── */
+    .try-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      border: 1.5px solid var(--ink);
+      color: var(--ink);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 14px 24px;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-bottom: 80px;
+    }
+
+    .try-btn:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .try-btn svg { transition: transform 0.15s; }
+    .try-btn:hover svg { transform: translateX(4px); }
+
+
+
+    /* ─── GRAIN OVERLAY ─── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 128px;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- THE ACTUAL NOTEPAD (hidden until launched) -->
+  <textarea id="pad" placeholder="start typing. nothing is saved. nothing is sent. just you and the page."></textarea>
+
+  <!-- LANDING PAGE -->
+  <div id="landing">
+
+    <p class="eyebrow">browser notepad</p>
+
+    <h1>A page that<br/>is just a<br/><em>blank page.</em></h1>
+
+    <p class="subtitle">
+      No server. No account. No saving. Click the button, get a blank page.
+      Type. Close the tab and it's gone — like a thought you needed to hold
+      for just a moment.
+    </p>
+
+    <button class="try-btn" onclick="openPad()">
+      Open the notepad
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+
+
+  </div>
+
+  <script>
+    function openPad() {
+      document.getElementById('landing').style.display = 'none';
+      const pad = document.getElementById('pad');
+      pad.style.display = 'block';
+      pad.focus();
+    }
+
+    // ESC to go back to landing
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && document.getElementById('pad').style.display === 'block') {
+        document.getElementById('pad').style.display = 'none';
+        document.getElementById('landing').style.display = 'flex';
+      }
+    });
+  </script>
+
+</body>
+</html>
