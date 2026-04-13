@@ -6,6 +6,8 @@ No server. No account. No saving.
 
 My first GitHub project — still learning.
 
+[Live Demo] (https://post-content.github.io/scratchpad/).
+
 Built with [Claude](https://claude.ai).
 
 ## License
