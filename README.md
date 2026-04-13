@@ -1,5 +1,5 @@
 # scratchpad
-[Live Demo](https://post-content.github.io/scratchpad/).
+[Live Demo](https://post-content.github.io/scratchpad/)
 
 A minimal browser notepad. Click, type, close. Gone.
 
